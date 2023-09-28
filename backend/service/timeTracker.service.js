@@ -69,7 +69,10 @@ class TimeTrackerService {
     }
 
     if (timeTracker.status === status.PAUSE) {
-      timeTracker.all_paused_time += Date.now() - timeTracker.last_paused_time;
+      const lastPausedTime = splitDate(timeTracker.last_paused_time);
+      const allPausedTime = splitStringToTime(timeTracker.all_paused_time);
+
+      timeTracker.all_paused_time = sumTime(lastPausedTime, allPausedTime);
     }
     timeTracker.status = status.FINISH;
     timeTracker.end_time = Date.now();

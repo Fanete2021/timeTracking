@@ -6,6 +6,8 @@ const userRouter = require('./routes/user.router');
 const timeTrackerRouter = require('./routes/timeTracker.router');
 const sequelize = require('./db');
 const errorMiddleware = require('./middleware/error.middleware');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const PORT = process.env.PORT || 8080;
 
@@ -15,12 +17,31 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Time tracking with Swagger',
+      version: '1.0.0',
+    },
+    servers: [
+      {
+        url: `http://localhost:${process.env.PORT}`
+      }
+    ]
+  },
+  apis: ['./controller/*.js']
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use('/api', userRouter);
+app.use('/api', timeTrackerRouter);
+app.use(errorMiddleware);
+
 sequelize.sync({ force: false })
   .then(() => {
-    app.use('/api', userRouter);
-    app.use('/api', timeTrackerRouter);
-    app.use(errorMiddleware);
-
     app.listen(PORT, () => {});
   })
   .catch((error) => {
