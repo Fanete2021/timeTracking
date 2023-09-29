@@ -2,8 +2,12 @@ const msHour = 60 * 60 * 1000;
 const msMin = 60 * 1000;
 const msSec = 1000;
 
-//Функция для получения из даты {часы, минуты, секунды}
+//Функция вернет сколько прошло часов, минут и секунд от переданной даты.
 module.exports = (date) => {
+  if (!(date instanceof Date)) {
+    return undefined;
+  }
+
   const differenceTime = Date.now() - new Date(date);
 
   const hours = Math.floor(differenceTime / msHour);

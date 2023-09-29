@@ -1,8 +1,8 @@
-const User = require('../model/User');
+const User = require('../../model/User');
 const bcrypt = require('bcrypt');
-const tokenService = require('./token.service');
-const UserDto = require('../dtos/user.dto');
-const ApiError = require('../exceptions/api.error');
+const tokenService = require('../token/token.service');
+const UserDto = require('../../dtos/user.dto');
+const ApiError = require('../../exceptions/api.error');
 
 class UserService {
   async createUserDtoAndTokens(user) {

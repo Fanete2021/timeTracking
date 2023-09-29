@@ -1,11 +1,11 @@
 const { Op } = require('sequelize');
-const TimeTracker = require('../model/TimeTracker');
-const TimeTrackerDto = require('../dtos/timeTracker.dto');
-const ApiError = require('../exceptions/api.error');
-const status = require('../enums/status');
-const splitDate = require('../utils/splitDate');
-const splitStringToTime = require('../utils/splitStringToTime');
-const sumTime = require('../utils/sumTime');
+const TimeTracker = require('../../model/TimeTracker');
+const TimeTrackerDto = require('../../dtos/timeTracker.dto');
+const ApiError = require('../../exceptions/api.error');
+const status = require('../../enums/status');
+const getElapsedTime = require('../../utils/getTimeElapsed/getElapsedTime');
+const splitStringToTime = require('../../utils/splitStringToTime/splitStringToTime');
+const sumTime = require('../../utils/sumTime/sumTime');
 
 class TimeTrackerService {
   async findCurrentTimeTracker(user) {
@@ -32,13 +32,15 @@ class TimeTrackerService {
 
       return new TimeTrackerDto(newTimeTracker);
     } else {
-      timeTracker.status = status.WORK;
+      if (timeTracker.status !== status.WORK) {
+        timeTracker.status = status.WORK;
 
-      const lastPausedTime = splitDate(timeTracker.last_paused_time);
-      const allPausedTime = splitStringToTime(timeTracker.all_paused_time);
+        const elapsedTime = getElapsedTime(timeTracker.last_paused_time);
+        const allPausedTime = splitStringToTime(timeTracker.all_paused_time);
 
-      timeTracker.all_paused_time = sumTime(lastPausedTime, allPausedTime);
-      await timeTracker.save();
+        timeTracker.all_paused_time = sumTime(elapsedTime, allPausedTime);
+        await timeTracker.save();
+      }
 
       return new TimeTrackerDto(timeTracker);
     }
@@ -69,10 +71,10 @@ class TimeTrackerService {
     }
 
     if (timeTracker.status === status.PAUSE) {
-      const lastPausedTime = splitDate(timeTracker.last_paused_time);
+      const elapsedTime = getElapsedTime(timeTracker.last_paused_time);
       const allPausedTime = splitStringToTime(timeTracker.all_paused_time);
 
-      timeTracker.all_paused_time = sumTime(lastPausedTime, allPausedTime);
+      timeTracker.all_paused_time = sumTime(elapsedTime, allPausedTime);
     }
     timeTracker.status = status.FINISH;
     timeTracker.end_time = Date.now();

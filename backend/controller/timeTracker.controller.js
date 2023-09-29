@@ -1,4 +1,4 @@
-const timeTrackerService = require('../service/timeTracker.service');
+const timeTrackerService = require('../service/timeTracker/timeTracker.service');
 
 /**
  * @swagger
