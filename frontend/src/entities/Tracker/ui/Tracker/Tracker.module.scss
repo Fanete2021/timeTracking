@@ -1,0 +1,31 @@
+.Tracker {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  background: var(--block-bg-color);
+  border-radius: 10px 10px 0 0;
+
+  .timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  background: var(--block-bg-color);
+  padding: 15px 20px;
+
+  .btn {
+    margin: 0 15px;
+  }
+}

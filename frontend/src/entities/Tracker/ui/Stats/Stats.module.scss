@@ -1,0 +1,46 @@
+.Stats {
+  margin: 30px 0;
+  width: 100%;
+  border: 1px solid var(--block-bg-color);
+  padding: 20px 20px 0;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.resultWeek {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px dotted black;
+
+  .result {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.day {
+  .dayInfo {
+    margin: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .resultTimeDay,
+  .trackerInfo {
+    border-radius: 10px;
+    margin: 10px 20px;
+    width: 300px;
+    padding: 20px;
+  }
+
+  .resultTimeDay {
+    background: greenyellow;
+  }
+
+  .trackerInfo {
+    background: var(--block-bg-color);
+  }
+}

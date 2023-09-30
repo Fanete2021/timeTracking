@@ -1,13 +1,5 @@
 //сумма между объектами с {hours, minutes, seconds}
 module.exports = (a, b) => {
-  if (!(a.hours && a.minutes && a.seconds)) {
-    return undefined;
-  }
-
-  if (!(b.hours && b.minutes && b.seconds)) {
-    return undefined;
-  }
-
   const newHours = a.hours + b.hours;
   const newMinutes = a.minutes + b.minutes;
   const newSeconds = a.seconds + b.seconds;

@@ -1,3 +1,4 @@
+import { getIsAuth } from './model/selectors/getIsAuth';
 import { getUsername } from './model/selectors/getUsername';
 import { checkAuth } from './model/services/checkAuth';
 import { deleteUser } from './model/services/deleteUser';
@@ -13,5 +14,6 @@ export {
   getUsername,
   checkAuth,
   logout,
-  deleteUser
+  deleteUser,
+  getIsAuth
 };

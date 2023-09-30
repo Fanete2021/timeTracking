@@ -5,11 +5,7 @@ const TokenService = require('../token/token.service');
 const User = require('../../model/User');
 const UserDto = require('../../dtos/user.dto');
 const jwt = require('jsonwebtoken');
-const TimeTracker = require('../../model/TimeTracker');
 const TimeTrackerService = require('../timeTracker/timeTracker.service');
-const {Op} = require('sequelize');
-const status = require('../../enums/status');
-const bcrypt = require('bcrypt');
 
 const mockUser = {
   user_id: 1,

@@ -1,15 +1,17 @@
 module.exports = class UserDto {
-  tracking_id;
-  start_time;
-  all_paused_time;
-  end_time;
+  trackingId;
+  startTime;
+  allPausedTime;
+  lastPausedTime;
+  endTime;
   status;
 
   constructor(model) {
-    this.tracking_id = model.tracking_id;
-    this.start_time = model.start_time;
-    this.all_paused_time = model.all_paused_time;
-    this.end_time = model.end_time;
+    this.trackingId = model.tracking_id;
+    this.startTime = model.start_time;
+    this.allPausedTime = model.all_paused_time;
+    this.lastPausedTime = model.last_paused_time;
+    this.endTime = model.end_time;
     this.status = model.status;
   }
 }

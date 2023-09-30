@@ -28,19 +28,23 @@ class TimeTrackerController {
    *             schema:
    *               type: object
    *               properties:
-   *                 tracking_id:
+   *                 trackingId:
    *                   type: number
    *                   description: Id трекера.
-   *                 start_time:
+   *                 startTime:
    *                   type: string
    *                   format: date-time
    *                   description: Время запуска трекера.
-   *                 all_paused_time:
+   *                 allPausedTime:
    *                   type: string
    *                   format: time
    *                   description: Общее время паузы.
    *                   example: '00:00:00'
-   *                 end_time:
+   *                 lastPausedTime:
+   *                   type: string
+   *                   format: date-time
+   *                   description: Время начала последней пузы.
+   *                 endTime:
    *                   type: string
    *                   format: date-time
    *                   description: Время, в которое трекер был завершен.
@@ -81,19 +85,23 @@ class TimeTrackerController {
    *             schema:
    *               type: object
    *               properties:
-   *                 tracking_id:
+   *                 trackingId:
    *                   type: number
    *                   description: Id трекера.
-   *                 start_time:
+   *                 startTime:
    *                   type: string
    *                   format: date-time
    *                   description: Время запуска трекера.
-   *                 all_paused_time:
+   *                 allPausedTime:
    *                   type: string
    *                   format: time
    *                   description: Общее время паузы.
    *                   example: '00:00:00'
-   *                 end_time:
+   *                 lastPausedTime:
+   *                   type: string
+   *                   format: date-time
+   *                   description: Время начала последней пузы.
+   *                 endTime:
    *                   type: string
    *                   format: date-time
    *                   description: Время, в которое трекер был завершен.
@@ -134,19 +142,23 @@ class TimeTrackerController {
    *             schema:
    *               type: object
    *               properties:
-   *                 tracking_id:
+   *                 trackingId:
    *                   type: number
    *                   description: Id трекера.
-   *                 start_time:
+   *                 startTime:
    *                   type: string
    *                   format: date-time
    *                   description: Время запуска трекера.
-   *                 all_paused_time:
+   *                 allPausedTime:
    *                   type: string
    *                   format: time
    *                   description: Общее время паузы.
    *                   example: '00:00:00'
-   *                 end_time:
+   *                 lastPausedTime:
+   *                   type: string
+   *                   format: date-time
+   *                   description: Время начала последней пузы.
+   *                 endTime:
    *                   type: string
    *                   format: date-time
    *                   description: Время, в которое трекер был завершен.
@@ -188,19 +200,23 @@ class TimeTrackerController {
    *               oneOf:
    *                - type: object
    *                  properties:
-   *                    tracking_id:
+   *                    trackingId:
    *                      type: number
    *                      description: Id трекера.
-   *                    start_time:
+   *                    startTime:
    *                      type: string
    *                      format: date-time
    *                      description: Время запуска трекера.
-   *                    all_paused_time:
+   *                    allPausedTime:
    *                      type: string
    *                      format: time
    *                      description: Общее время паузы.
    *                      example: '00:00:00'
-   *                    end_time:
+   *                    lastPausedTime:
+   *                      type: string
+   *                      format: date-time
+   *                      description: Время начала последней пузы.
+   *                    endTime:
    *                      type: string
    *                      format: date-time
    *                      description: Время, в которое трекер был завершен.
@@ -227,9 +243,9 @@ class TimeTrackerController {
 
   /**
    * @swagger
-   * /api/tracker/getAllTrackers:
+   * /api/tracker/getLastWeek:
    *   get:
-   *     summary: Получение всех трекеров пользователя
+   *     summary: Получение всех трекеров пользователя за последние 7 дней
    *     tags: [TimeTracker]
    *     parameters:
    *       - in: header
@@ -248,19 +264,23 @@ class TimeTrackerController {
    *               items:
    *                 type: object
    *                 properties:
-   *                   tracking_id:
+   *                   trackingId:
    *                     type: number
    *                     description: Id трекера.
-   *                   start_time:
+   *                   startTime:
    *                     type: string
    *                     format: date-time
    *                     description: Время запуска трекера.
-   *                   all_paused_time:
+   *                   allPausedTime:
    *                     type: string
    *                     format: time
    *                     description: Общее время паузы.
    *                     example: '00:00:00'
-   *                   end_time:
+   *                   lastPausedTime:
+   *                     type: string
+   *                     format: date-time
+   *                     description: Время начала последней пузы.
+   *                   endTime:
    *                     type: string
    *                     format: date-time
    *                     description: Время, в которое трекер был завершен.
@@ -273,10 +293,10 @@ class TimeTrackerController {
    *                       - 'Закончен'
    *                     example: 'Закончен'
    */
-  async getAllByUser(req, res, next) {
+  async getLastWeekByUser(req, res, next) {
     try {
       const { user } = req;
-      const timeTrackers = await timeTrackerService.getAllTimeTrackers(user);
+      const timeTrackers = await timeTrackerService.getLastWeek(user);
 
       return res.json(timeTrackers);
     } catch (e) {

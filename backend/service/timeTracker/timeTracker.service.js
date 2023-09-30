@@ -39,6 +39,7 @@ class TimeTrackerService {
         const allPausedTime = splitStringToTime(timeTracker.all_paused_time);
 
         timeTracker.all_paused_time = sumTime(elapsedTime, allPausedTime);
+
         await timeTracker.save();
       }
 
@@ -94,8 +95,16 @@ class TimeTrackerService {
     return new TimeTrackerDto(timeTracker);
   }
 
-  async getAllTimeTrackers(user) {
-    const timeTrackers = await TimeTracker.findAll({ where: { user_id: user.user_id }});
+  async getLastWeek(user) {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    const timeTrackers = await TimeTracker.findAll({ where: {
+      user_id: user.user_id,
+      start_time: {
+        [Op.gte]: oneWeekAgo
+      }
+    }});
 
     return timeTrackers.map(tracker => new TimeTrackerDto(tracker));
   }

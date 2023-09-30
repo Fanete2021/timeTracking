@@ -4,7 +4,7 @@ import styles from './Navbar.module.scss';
 import { AppLink, Button, ButtonTheme, Modal, Switcher } from 'shared/ui';
 import { LoginForm } from 'features/Auth';
 import { RegistrationForm } from 'features/Registration';
-import { getUsername, logout } from 'entities/User';
+import { getIsAuth, logout } from 'entities/User';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { NavbarItemsList } from 'widgets/Navbar/model/routerItems';
@@ -22,7 +22,7 @@ export const Navbar: FC<NavbarProps> = ({ className }) => {
   const [ isAuthModal, setIsAuthModal ] = useState<boolean>(false);
   const [ currentIndexForm, setCurrentIndexForm ] = useState<number>(0);
   const dispatch = useAppDispatch();
-  const username = useSelector(getUsername);
+  const isAuth = useSelector(getIsAuth);
 
   const onLogout = useCallback(() => {
     dispatch(logout());
@@ -55,7 +55,7 @@ export const Navbar: FC<NavbarProps> = ({ className }) => {
     <div className={classNames(styles.Navbar, {}, [ className ])}>
       <div className={styles.router}>
         {NavbarItemsList.map((item) => {
-          if (item.authOnly && !username) {
+          if (item.authOnly && !isAuth) {
             return null;
           }
           
@@ -71,7 +71,7 @@ export const Navbar: FC<NavbarProps> = ({ className }) => {
         })}
       </div>
 
-      {username
+      {isAuth
         ?
         <div className={styles.user}>
           <Button

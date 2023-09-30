@@ -5,7 +5,8 @@ import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 import { Portal } from './Portal/Portal';
 import { Switcher } from './Switcher/Switcher';
-import { Text, TextTheme } from './Text/Text';
+import { Text } from './Text/Text';
+import { Time, Timer } from './Timer/Timer';
 
 export {
   AppLink,
@@ -16,6 +17,7 @@ export {
   Portal,
   Input,
   Text,
-  TextTheme,
-  Switcher
+  Switcher,
+  Timer,
+  Time
 };

@@ -6,8 +6,9 @@ import { routeConfig } from 'shared/config/routeConfig/routeConfig';
 import { useNavigate } from 'react-router-dom';
 import { Button, ButtonTheme, Text } from 'shared/ui';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { Stats } from 'entities/Tracker';
 
-const ProfilePage = memo(() => {
+const ProfilePage = () => {
   const username = useSelector(getUsername);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -53,10 +54,10 @@ const ProfilePage = memo(() => {
       </div>
 
       <div className={styles.content}>
-        Статистика
+        <Stats />
       </div>
     </div>
   );
-});
+};
 
 export default ProfilePage;

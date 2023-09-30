@@ -3,12 +3,14 @@ import { StateSchema } from './StateSchema';
 import { userReducer } from 'entities/User';
 import { loginReducer } from 'features/Auth';
 import { registrationReducer } from 'features/Registration';
+import { trackerReducer } from 'entities/Tracker';
 
 export function createReduxStore(initialState?: StateSchema) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     user: userReducer,
     login: loginReducer,
-    registration: registrationReducer
+    registration: registrationReducer,
+    tracker: trackerReducer
   };
 
   return configureStore<StateSchema>({

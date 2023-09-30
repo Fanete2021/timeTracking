@@ -1,5 +1,5 @@
-import { MainPage } from 'pages/MainPage';
-import { ProfilePage } from 'pages/ProfilePage';
+import ProfilePage from 'pages/ProfilePage/ProfilePage';
+import MainPage from 'pages/MainPage/MainPage';
 import { RouteProps } from 'react-router-dom';
 
 export enum AppRoutes {
