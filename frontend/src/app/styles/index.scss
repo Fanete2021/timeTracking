@@ -1,0 +1,11 @@
+@import "./variables/global";
+@import "reset";
+
+.app,
+.app_modal {
+  font: var(--font-m);
+}
+
+.page-wrapper {
+  margin: 0 var(--content-indent);
+}

@@ -1,0 +1,37 @@
+.Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 15px;
+  transition: 0.4s;
+  font-size: var(--font-m);
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.clear {
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.outline {
+  border: 1px solid black;
+  background: none;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.square {
+  padding: 0;
+}
+
+.disabled {
+  opacity: 0.5;
+}

@@ -45,7 +45,7 @@ class UserController {
    *                 refreshToken:
    *                   type: string
    *                   description: Токен обновления.
-   *                 user:
+   *                 data:
    *                   type: object
    *                   description: Объект пользователя.
    *                   properties:
@@ -110,7 +110,7 @@ class UserController {
    *                 refreshToken:
    *                   type: string
    *                   description: Токен обновления.
-   *                 user:
+   *                 data:
    *                   type: object
    *                   description: Объект пользователя.
    *                   properties:
@@ -176,7 +176,7 @@ class UserController {
    *                refreshToken:
    *                  type: string
    *                  description: Токен обновления.
-   *                user:
+   *                data:
    *                  type: object
    *                  description: Объект пользователя.
    *                  properties:
@@ -189,7 +189,7 @@ class UserController {
    */
   async refresh(req, res, next) {
     try {
-      const { refreshToken } = req.cookies;
+      const { refreshToken } = req.cookies
 
       const userData = await userService.refresh(refreshToken);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});

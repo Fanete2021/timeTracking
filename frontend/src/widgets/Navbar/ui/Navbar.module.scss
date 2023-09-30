@@ -1,0 +1,29 @@
+.Navbar {
+  height: var(--navbar-height);
+  border-radius: 10px;
+  background: var(--navbar-bg-color);
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 10px var(--content-indent);
+  color: var(--navbar-text-color);
+}
+
+.router {
+
+}
+
+.routerLink {
+  margin: 0 10px;
+  color: var(--navbar-text-color);
+}
+
+.user {
+  margin-left: auto;
+  display: flex;
+}
+
+.button {
+  margin: 0 10px;
+  color: var(--navbar-text-color);
+}

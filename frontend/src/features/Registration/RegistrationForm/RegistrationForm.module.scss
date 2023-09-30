@@ -1,0 +1,31 @@
+.RegistrationForm {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background: var(--form-bg-color);
+  padding: 0 40px;
+  color: black;
+  border-radius: 0 0 10px 10px;
+}
+
+.title {
+  margin: 5px 0 15px;
+  text-align: center;
+}
+
+.block {
+  margin: 5px 0;
+}
+
+.input {
+  margin: 5px 0;
+}
+
+.registrationBtn {
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+}

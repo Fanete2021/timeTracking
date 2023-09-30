@@ -1,0 +1,33 @@
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user,
+  .actions {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    width: 400px;
+    min-height: 100px;
+    border: 1px solid var(--block-bg-color);
+    border-radius: 10px;
+
+    .title {
+      margin-bottom: 10px;
+    }
+  }
+
+  .actions {
+    .btns {
+      .delete {
+        border: 1px solid red;
+        color: red;
+      }
+    }
+  }
+}
+
+.content {
+
+}
