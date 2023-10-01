@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styles from './ProfilePage.module.scss';
 import { useSelector } from 'react-redux';
 import { deleteUser, getIsAuth, getUsername } from 'entities/User';

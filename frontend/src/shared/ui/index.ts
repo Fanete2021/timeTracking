@@ -6,7 +6,8 @@ import { Modal } from './Modal/Modal';
 import { Portal } from './Portal/Portal';
 import { Switcher } from './Switcher/Switcher';
 import { Text } from './Text/Text';
-import { Time, Timer } from './Timer/Timer';
+import { Time } from './Timer/model/Time';
+import { Timer } from './Timer/ui/Timer';
 
 export {
   AppLink,

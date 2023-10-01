@@ -3,12 +3,8 @@ import styles from './Timer.module.scss';
 import { FC, useEffect, useRef, useState } from 'react';
 import { calculateTime } from 'shared/lib/calculateTime/calculateTime';
 import { getFormattedTime } from 'shared/lib/getFormattedTime/getFormattedTime';
+import { Time } from '../model/Time';
 
-export interface Time {
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
 
 interface TimerProps {
   className?: string;

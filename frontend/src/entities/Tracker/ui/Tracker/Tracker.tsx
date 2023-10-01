@@ -90,10 +90,6 @@ export const Tracker: FC<TrackerProps> = (props) => {
     return currentTracker.status === status.WORK;
   }, [ isDisabled, currentTracker ]);
 
-  const isPauseButtonDisabled = useCallback(() => {
-    return !currentTracker || currentTracker.status === status.PAUSE || currentTracker.status === status.FINISH;
-  }, [ currentTracker ]);
-
   return (
     <div className={classNames(styles.Tracker, {}, [ className ])}>
       <div className={styles.stats}>
@@ -132,7 +128,7 @@ export const Tracker: FC<TrackerProps> = (props) => {
         <Button
           className={styles.btn}
           onClick={onPause}
-          disabled={isPauseButtonDisabled()}
+          disabled={!currentTracker || currentTracker.status !== status.WORK}
           theme={ButtonTheme.OUTLINE}
         >
           Ушел курить

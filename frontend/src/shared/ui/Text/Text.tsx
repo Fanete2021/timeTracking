@@ -18,17 +18,13 @@ export const Text: FC<TextProps> = (props) => {
   return (
     <div className={classNames(styles.Text, {}, [ className ])}>
       {title &&
-        <p
-          className={styles.title}
-        >
+        <p className={styles.title}>
           {title}
         </p>
       }
 
       {text &&
-        <p
-          className={styles.text}
-        >
+        <p className={styles.text}>
           {text}
         </p>
       }

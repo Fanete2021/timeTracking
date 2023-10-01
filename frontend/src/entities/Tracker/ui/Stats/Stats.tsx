@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import styles from './Stats.module.scss';
 import { ITracker, status } from '../../model/types/tracker';
@@ -8,7 +8,7 @@ import { splitStringToTime } from 'shared/lib/splitStringToTime/splitStringToTim
 import { calculateTime, operations } from 'shared/lib/calculateTime/calculateTime';
 import { getFormattedTime } from 'shared/lib/getFormattedTime/getFormattedTime';
 import { getDaysOfWeek } from 'shared/lib/getDaysOfWeek/getDaysOfWeek';
-import { getStartAndEndDay } from 'shared/lib/getStartAndEndDay/getStartAndEndDay';
+import { getStartAndEndDay } from 'shared/lib/getStartAndEndDay/getStartAndEndDay.test';
 
 const countDays = 7;
 let allWorkedTime: Time = null;
@@ -111,30 +111,22 @@ export const Stats = memo((props: StatsProps) => {
     trackers
   } = props;
 
-  const sortedTrackers: ITracker[] | null = useMemo(() => {
+  const getStats = useMemo(() => {
     if (trackers) {
-      const sortedArray = [ ...trackers ].filter((tracker) => tracker.status === status.FINISH);
-      
-      sortedArray.sort((a, b) => {
+      const sortedTrackers = [ ...trackers ].filter((tracker) => tracker.status === status.FINISH);
+
+      sortedTrackers.sort((a, b) => {
         const dateA = new Date(a.startTime).getTime();
         const dateB = new Date(b.startTime).getTime();
 
         return dateB - dateA;
       });
 
-      return sortedArray;
-    } else {
-      return null;
-    }
-  }, [ trackers ]);
-
-  const getStats = useMemo(() => {
-    if (sortedTrackers) {
       return getStatsOfWeek(sortedTrackers);
     } else {
       return null;
     }
-  }, [ sortedTrackers ]);
+  }, [ trackers ]);
 
   return (
     <div className={classNames(styles.Stats, {}, [ className ])}>

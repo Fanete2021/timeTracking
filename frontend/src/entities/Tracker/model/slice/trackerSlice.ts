@@ -4,7 +4,6 @@ import { getCurrentTracker } from '../services/getCurrentTracker';
 import { getLastWeekTrackers } from '../services/getLastWeekTrackers';
 import { startTracker } from '../services/startTracker';
 import { pauseTracker } from '../services/pauseTracker';
-import { finishTracker } from '../services/finishTracker';
 
 const initialState: TrackerSchema = {
   trackers: null,

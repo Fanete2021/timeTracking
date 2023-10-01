@@ -4,6 +4,7 @@ const msHour = 60 * 60 * 1000;
 const msMin = 60 * 1000;
 const msSec = 1000;
 
+//Функция вовзаращет объект Time, в котором указано сколько времени прошло от переданной даты
 export const getTimeElapsed = (date: Date): Time => {
   const differenceTime = new Date().getTime() - date.getTime();
 

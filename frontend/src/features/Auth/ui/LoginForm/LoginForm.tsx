@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import styles from './LoginForm.module.scss';
 import { Button, ButtonTheme, Input, Text } from 'shared/ui';
@@ -22,7 +22,6 @@ export const LoginForm:FC<LoginFormProps> = (props) => {
   } = props;
 
   const dispatch = useAppDispatch();
-
   const { username, password, isLoading, error } = useSelector(getLoginState);
 
   const onChangeUsername = useCallback((value: string) => {
