@@ -5,7 +5,6 @@ import { Button, ButtonTheme, Text, Time, Timer } from 'shared/ui';
 import { status } from '../../model/types/tracker';
 import { getCurrentTracker } from '../../model/services/getCurrentTracker';
 import { useSelector } from 'react-redux';
-import { getIsAuth } from 'entities/User';
 import { startTracker } from '../../model/services/startTracker';
 import { getTimeElapsed } from 'shared/lib/getTimeElapsed/getTimeElapsed';
 import { calculateTime, operations } from 'shared/lib/calculateTime/calculateTime';
@@ -18,24 +17,25 @@ import { trackerActions } from '../../model/slice/trackerSlice';
 
 interface TrackerProps {
   className?: string;
+  isDisabled?: boolean;
 }
 
 export const Tracker: FC<TrackerProps> = (props) => {
   const {
-    className
+    className,
+    isDisabled
   } = props;
 
   const dispatch = useAppDispatch();
-  const isAuth = useSelector(getIsAuth);
   const { currentTracker } = useSelector(getTrackerState);
   const [ timeElapsed, setTimeElapsed ] = useState<Time | null>(null);
   const [ pausedTime, setPausedTime ] = useState<Time | null>(null);
 
   useEffect(() => {
-    if (isAuth) {
+    if (isDisabled) {
       dispatch(getCurrentTracker());
     }
-  }, [ dispatch, isAuth ]);
+  }, [ dispatch, isDisabled ]);
 
   useEffect(() => {
     if (currentTracker) {
@@ -74,9 +74,10 @@ export const Tracker: FC<TrackerProps> = (props) => {
   }, [ dispatch ]);
 
   const isStartButtonDisabled = useCallback(() => {
-    //Необходим правильный порядок, поэтому раздельные блоки из условий, иначе вместе они вернут неправильное значение
-    //Сначала проверка, что пользователь не авторизован. Тогда нельзя нажать
-    if (!isAuth) {
+    //Необходим правильный порядок, поэтому раздельные блоки из условий, иначе вместе они вернут неправильное значение.
+    //Так как при isDisabled currentTracker равен null
+    //Сначала проверка переданного пропса. Тогда нельзя нажать.
+    if (!isDisabled) {
       return true;
     }
 
@@ -87,7 +88,7 @@ export const Tracker: FC<TrackerProps> = (props) => {
 
     //И финальная проверка, что статус текущий WORK. Нельзя нажать
     return currentTracker.status === status.WORK;
-  }, [ isAuth, currentTracker ]);
+  }, [ isDisabled, currentTracker ]);
 
   const isPauseButtonDisabled = useCallback(() => {
     return !currentTracker || currentTracker.status === status.PAUSE || currentTracker.status === status.FINISH;
@@ -101,7 +102,7 @@ export const Tracker: FC<TrackerProps> = (props) => {
 
           <Timer
             time={timeElapsed}
-            isWork={isAuth && currentTracker && currentTracker.status === status.WORK}
+            isWork={isDisabled && currentTracker && currentTracker.status === status.WORK}
           />
         </div>
 
@@ -110,7 +111,7 @@ export const Tracker: FC<TrackerProps> = (props) => {
 
           <Timer
             time={pausedTime}
-            isWork={isAuth && currentTracker && currentTracker.status === status.PAUSE}
+            isWork={isDisabled && currentTracker && currentTracker.status === status.PAUSE}
           />
         </div>
       </div>

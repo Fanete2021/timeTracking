@@ -1,24 +1,30 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import styles from './ProfilePage.module.scss';
 import { useSelector } from 'react-redux';
-import { deleteUser, getUsername } from 'entities/User';
+import { deleteUser, getIsAuth, getUsername } from 'entities/User';
 import { routeConfig } from 'shared/config/routeConfig/routeConfig';
 import { useNavigate } from 'react-router-dom';
 import { Button, ButtonTheme, Text } from 'shared/ui';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
-import { Stats } from 'entities/Tracker';
+import { getLastWeekTrackers, getTrackerState, Stats } from 'entities/Tracker';
 
 const ProfilePage = () => {
+  const isAuth = useSelector(getIsAuth);
   const username = useSelector(getUsername);
   const dispatch = useAppDispatch();
+  const { trackers } = useSelector(getTrackerState);
   const navigate = useNavigate();
 
-  if (!username) {
+  if (!isAuth) {
     navigate(routeConfig.main.path);
   }
 
   const onDelete = useCallback(() => {
     dispatch(deleteUser());
+  }, [ dispatch ]);
+  
+  useEffect(() => {
+    dispatch(getLastWeekTrackers());
   }, [ dispatch ]);
 
   return (
@@ -54,7 +60,7 @@ const ProfilePage = () => {
       </div>
 
       <div className={styles.content}>
-        <Stats />
+        <Stats trackers={trackers}/>
       </div>
     </div>
   );

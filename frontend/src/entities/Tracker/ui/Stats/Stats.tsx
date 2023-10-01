@@ -1,11 +1,7 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import styles from './Stats.module.scss';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
-import { getLastWeekTrackers } from 'entities/Tracker';
-import { useSelector } from 'react-redux';
-import { getTrackerState } from 'entities/Tracker/model/selectors/getTrackerState';
-import { ITracker } from '../../model/types/tracker';
+import { ITracker, status } from '../../model/types/tracker';
 import { Text, Time } from 'shared/ui';
 import { getTimeElapsed } from 'shared/lib/getTimeElapsed/getTimeElapsed';
 import { splitStringToTime } from 'shared/lib/splitStringToTime/splitStringToTime';
@@ -88,11 +84,11 @@ const getStatsOfWeek = (trackers: ITracker[]): JSX.Element[] => {
 
             <div className={styles.resultTimeDay}>
               <div className={styles.totalWorkTime}>
-                {`Часов работы за день: ${getFormattedTime(dayWorkedTime)}`}
+                {`Время работы за день: ${getFormattedTime(dayWorkedTime)}`}
               </div>
 
               <div className={styles.totalPausedTime}>
-                {`Часов отдыха за день: ${getFormattedTime(dayPausedTime)}`}
+                {`Время отдыха за день: ${getFormattedTime(dayPausedTime)}`}
               </div>
             </div>
           </div>
@@ -106,20 +102,19 @@ const getStatsOfWeek = (trackers: ITracker[]): JSX.Element[] => {
 
 interface StatsProps {
   className?: string;
+  trackers: ITracker[];
 }
 
 export const Stats = memo((props: StatsProps) => {
   const {
-    className
+    className,
+    trackers
   } = props;
 
-  const dispatch = useAppDispatch();
-  const { trackers } = useSelector(getTrackerState);
-  const [ sortedTrackers, setSortedTrackers ] = useState<ITracker[]>(null);
-
-  useEffect(() => {
+  const sortedTrackers: ITracker[] | null = useMemo(() => {
     if (trackers) {
-      const sortedArray = [ ...trackers ];
+      const sortedArray = [ ...trackers ].filter((tracker) => tracker.status === status.FINISH);
+      
       sortedArray.sort((a, b) => {
         const dateA = new Date(a.startTime).getTime();
         const dateB = new Date(b.startTime).getTime();
@@ -127,9 +122,10 @@ export const Stats = memo((props: StatsProps) => {
         return dateB - dateA;
       });
 
-      setSortedTrackers(sortedArray);
+      return sortedArray;
+    } else {
+      return null;
     }
-
   }, [ trackers ]);
 
   const getStats = useMemo(() => {
@@ -139,10 +135,6 @@ export const Stats = memo((props: StatsProps) => {
       return null;
     }
   }, [ sortedTrackers ]);
-
-  useEffect(() => {
-    dispatch(getLastWeekTrackers());
-  }, [ dispatch ]);
 
   return (
     <div className={classNames(styles.Stats, {}, [ className ])}>
