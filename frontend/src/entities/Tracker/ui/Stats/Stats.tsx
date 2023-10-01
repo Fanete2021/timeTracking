@@ -8,7 +8,7 @@ import { splitStringToTime } from 'shared/lib/splitStringToTime/splitStringToTim
 import { calculateTime, operations } from 'shared/lib/calculateTime/calculateTime';
 import { getFormattedTime } from 'shared/lib/getFormattedTime/getFormattedTime';
 import { getDaysOfWeek } from 'shared/lib/getDaysOfWeek/getDaysOfWeek';
-import { getStartAndEndDay } from 'shared/lib/getStartAndEndDay/getStartAndEndDay.test';
+import { getStartAndEndDay } from 'shared/lib/getStartAndEndDay/getStartAndEndDay';
 
 const countDays = 7;
 let allWorkedTime: Time = null;
